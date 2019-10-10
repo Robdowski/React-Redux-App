@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { fetchRandom, fetchAll, pageUp, pageDown } from "../actions";
 import Quote from "./Quote";
+
 
 function GetQuotes(props) {
   console.log("props", props);
@@ -10,7 +10,7 @@ function GetQuotes(props) {
     return <h2>Loading Quotes...</h2>;
   } else if (props.quotes.length <= 10) {
     return (
-      <div>
+      <div className='quote-container'>
         {props.error && <p>{props.error}</p>}
         {props.quotes.map(item => (
           <Quote
@@ -19,18 +19,16 @@ function GetQuotes(props) {
             text={item.quoteText}
           />
         ))}
-        <button onClick={props.fetchRandom}>Random Quote</button>
-        <button onClick={props.fetchAll}>All Quotes</button>
       </div>
     );
   } else {
     return (
-      <div>
+      <div className='quote-container'>
         {props.error && <p>{props.error}</p>}
         {props.quotes
           .slice(
-            props.page === 0 ? 0 : props.page * 10,
-            props.page === 0 ? 9 : props.page * 10 + 10
+            props.page === 0 ? 0 : props.page * 4,
+            props.page === 0 ? 4 : props.page * 4 + 4
           )
           .map(item => (
             <Quote
@@ -39,13 +37,6 @@ function GetQuotes(props) {
               text={item.quoteText}
             />
           ))}
-        <p>Page: {props.page + 1}</p>
-        <button className={props.page === 0 ? "unavailable" : ""} onClick={props.pageDown}>
-          Previous
-        </button>
-        <button className={props.page === 20 ? "unavailable" : ""} onClick={props.pageUp}>Next</button>
-        <button onClick={props.fetchRandom}>Random Quote</button>
-        <button onClick={props.fetchAll}>All Quotes</button>
       </div>
     );
   }
@@ -62,5 +53,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchRandom, fetchAll, pageUp, pageDown }
+  {}
 )(GetQuotes);

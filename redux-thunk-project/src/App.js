@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
 import GetQuotes from './components/GetQuotes';
+import Dashboard from './components/Dashboard'
 
 function App() {
   return (
     <div className="App">
-    <h1>Random Quote Generator</h1>
+      <Dashboard />
       <GetQuotes />
     </div>
   );
