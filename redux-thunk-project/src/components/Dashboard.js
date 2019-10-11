@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   fetchRandom,
   fetchAll,
   pageUp,
   pageDown,
-  handleChanges
+  handleChanges,
+  randomPage,
+  handlePageChanges
 } from "../actions";
 import { connect } from "react-redux";
 
 function Dashboard(props) {
   console.log("search value", props.search);
+  useEffect(() => {
+    props.fetchRandom();
+  }, []);
   return (
     <div className="dashboard-container">
       <div className="dashboard-header">
@@ -22,6 +27,9 @@ function Dashboard(props) {
         <div className="search-container">
           <label htmlFor="search">Search: </label>
           <input type="text" name="search" onChange={props.handleChanges} />
+          <button className="random-button" onClick={props.randomPage}>
+            Random Page
+          </button>
         </div>
       )}
 
@@ -32,13 +40,22 @@ function Dashboard(props) {
         >
           Previous
         </button>
-        <p>Page: {props.page + 1}</p>
-        <button
-          className={props.page === 20 ? "unavailable" : ""}
-          onClick={props.pageUp}
-        >
-          Next
-        </button>
+        <p>Page: {Number(props.page)}</p>
+        {props.quotes.length > 1 && (
+          <div className="page-input-container">
+            <label htmlFor="page" name="page">
+              Page Select:&nbsp;
+            </label>
+          <input
+          className='page-input'
+          name='page'
+          htmlFor='page'
+          onChange={props.handlePageChanges}
+          />
+            / {Math.floor(props.quotes.length /4)}
+          </div>
+        )}
+        <button onClick={props.pageUp}>Next</button>
       </div>
     </div>
   );
@@ -56,5 +73,13 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchRandom, fetchAll, pageUp, pageDown, handleChanges }
+  {
+    fetchRandom,
+    fetchAll,
+    pageUp,
+    pageDown,
+    handleChanges,
+    randomPage,
+    handlePageChanges
+  }
 )(Dashboard);

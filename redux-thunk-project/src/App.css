@@ -74,6 +74,17 @@ h1{
   width: 660px;
   display:flex;
   justify-content: space-between;
-  padding: 0;
-  align-items: flex-end;
+  align-items: center;
+}
+
+.random-button{
+  margin-left: 30px;
+}
+
+.page-input{
+  width: 30px;
+}
+
+.page-input-container{
+  display:inline-block;
 }
