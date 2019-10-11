@@ -19,16 +19,15 @@ function Dashboard(props) {
     <div className="dashboard-container">
       <div className="dashboard-header">
         <h1>Robert's Quote Generator</h1>
-      
-        <button className="random-button" onClick={props.randomPage}>
-            Random Page
-          </button>
       </div>
 
       {props.quotes.length > 1 && (
           <div className="search-container">
             <label htmlFor="search">Search: </label>
             <input type="text" name="search" onChange={props.handleChanges} value={props.search} />
+            <button className="random-button" onClick={props.randomPage}>
+            Random Page
+          </button>
           </div>
       )}
 
