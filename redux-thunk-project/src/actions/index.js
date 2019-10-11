@@ -5,6 +5,7 @@ export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_FAILURE = 'FETCH_FAILURE';
 export const PAGE_UP = 'PAGE_UP'
 export const PAGE_DOWN = 'PAGE_DOWN'
+export const HANDLE_CHANGES = 'HANDLE_CHANGES'
 
 export const fetchRandom = () => dispatch => {
     dispatch({type: START_FETCHING});
@@ -34,4 +35,9 @@ export const pageUp = () => dispatch => {
 
 export const pageDown = () => dispatch => {
     dispatch({type: PAGE_DOWN})
+}
+
+export const handleChanges = e => dispatch => {
+    console.log(e)
+    dispatch({type: HANDLE_CHANGES, payload: e.target.value})
 }

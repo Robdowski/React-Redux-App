@@ -2,15 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import Quote from "./Quote";
 
-
 function GetQuotes(props) {
   console.log("props", props);
 
   if (props.isFetching) {
     return <h2>Loading Quotes...</h2>;
-  } else if (props.quotes.length <= 10) {
+  } else if (props.quotes.length <= 4) {
     return (
-      <div className='quote-container'>
+      <div className="quote-container">
         {props.error && <p>{props.error}</p>}
         {props.quotes.map(item => (
           <Quote
@@ -21,9 +20,34 @@ function GetQuotes(props) {
         ))}
       </div>
     );
+  } else if (props.search) {
+    return (
+      <div className="quote-container">
+        {props.error && <p>{props.error}</p>}
+        {props.quotes
+          .filter(
+            quote =>
+              quote.quoteAuthor
+                .toLowerCase()
+                .includes(props.search.toLowerCase()) ||
+              quote.quoteText.toLowerCase().includes(props.search.toLowerCase())
+          )
+          .slice(
+            props.page === 0 ? 0 : props.page * 4,
+            props.page === 0 ? 4 : props.page * 4 + 4
+          )
+          .map(item => (
+            <Quote
+              key={item.id}
+              author={item.quoteAuthor}
+              text={item.quoteText}
+            />
+          ))}
+      </div>
+    );
   } else {
     return (
-      <div className='quote-container'>
+      <div className="quote-container">
         {props.error && <p>{props.error}</p>}
         {props.quotes
           .slice(
@@ -47,7 +71,8 @@ const mapStateToProps = state => {
     quotes: state.quotes,
     isFetching: state.isFetching,
     error: state.error,
-    page: state.page
+    page: state.page,
+    search: state.search
   };
 };
 

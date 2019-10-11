@@ -1,10 +1,11 @@
-import { START_FETCHING, FETCH_FAILURE, FETCH_SUCCESS, PAGE_UP, PAGE_DOWN } from '../actions'
+import { START_FETCHING, FETCH_FAILURE, FETCH_SUCCESS, PAGE_UP, PAGE_DOWN, HANDLE_CHANGES } from '../actions'
 
 const initialState = {
     quotes:[],
     isFetching: false,
     error: '',
     page: 0,
+    search: ''
 }
 
 export const reducer = (state = initialState, action) => {
@@ -43,6 +44,11 @@ export const reducer = (state = initialState, action) => {
         return{
             ...state,
             page: state.page === 0 ? state.page : state.page -= 1
+        }
+    case HANDLE_CHANGES:
+        return{
+            ...state,
+            search: action.payload
         }
 
     default:
