@@ -16,7 +16,9 @@ export const reducer = (state = initialState, action) => {
         ...state,
         isFetching: true,
         error: '',
-        quotes: []
+        quotes: [],
+        page: 0,
+        search: ''
       };
 
     case FETCH_SUCCESS:
@@ -37,25 +39,27 @@ export const reducer = (state = initialState, action) => {
     case PAGE_UP:
         return{
             ...state,
-            page: state.page === 500 ? state.page : state.page += 1
+            page: state.page === 1356 ? state.page : state.page += 1
         }
 
     case PAGE_DOWN:
         return{
             ...state,
-            page: state.page === 0 ? state.page : state.page -= 1
+            page: state.page === 0 ? state.page : state.page -= 1,
         }
 
     case RANDOM_PAGE:
         return{
             ...state,
-            page: action.payload
+            page: Math.floor(Math.random() * 1356),
+            search: '',
         }
 
     case HANDLE_CHANGES:
         return{
             ...state,
-            search: action.payload
+            search: action.payload,
+            page: 0
         }
     case PAGE_SELECT:
         return{

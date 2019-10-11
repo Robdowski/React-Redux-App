@@ -40,14 +40,13 @@ export const pageDown = () => dispatch => {
 }
 
 export const handleChanges = e => dispatch => {
-    console.log(e)
     dispatch({type: HANDLE_CHANGES, payload: e.target.value})
 }
 
 export const randomPage = () => dispatch => {
-    dispatch({type: RANDOM_PAGE, payload: Math.floor(Math.random() * 1326)})
+    dispatch({type: RANDOM_PAGE })
 }
 
 export const handlePageChanges = e => dispatch => {
-    dispatch({type: PAGE_SELECT, payload: e.target.value})
+    dispatch({type: PAGE_SELECT, payload: (e.target.value && e.target.value < 1356) ? e.target.value - 1 : 0})
 }

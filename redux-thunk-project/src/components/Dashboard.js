@@ -18,44 +18,46 @@ function Dashboard(props) {
   return (
     <div className="dashboard-container">
       <div className="dashboard-header">
-        <button onClick={props.fetchRandom}>Random Quote</button>
         <h1>Robert's Quote Generator</h1>
-        <button onClick={props.fetchAll}>All Quotes</button>
+      
+        <button className="random-button" onClick={props.randomPage}>
+            Random Page
+          </button>
       </div>
 
       {props.quotes.length > 1 && (
-        <div className="search-container">
-          <label htmlFor="search">Search: </label>
-          <input type="text" name="search" onChange={props.handleChanges} />
-          <button className="random-button" onClick={props.randomPage}>
-            Random Page
-          </button>
-        </div>
+          <div className="search-container">
+            <label htmlFor="search">Search: </label>
+            <input type="text" name="search" onChange={props.handleChanges} value={props.search} />
+          </div>
       )}
 
-      <div className="page-container">
+      <div className="button-dashboard">
         <button
           className={props.page === 0 ? "unavailable" : ""}
           onClick={props.pageDown}
         >
           Previous
         </button>
-        <p>Page: {Number(props.page)}</p>
+        <button onClick={props.fetchAll}>All Quotes</button>
+        <button onClick={props.fetchRandom}>Random Quote</button>
+        <button onClick={props.pageUp}>Next</button>
+        
         {props.quotes.length > 1 && (
           <div className="page-input-container">
+          <p>Page: {Number(props.page) + 1}</p>
             <label htmlFor="page" name="page">
               Page Select:&nbsp;
             </label>
-          <input
-          className='page-input'
-          name='page'
-          htmlFor='page'
-          onChange={props.handlePageChanges}
-          />
-            / {Math.floor(props.quotes.length /4)}
+            <input
+              className="page-input"
+              name="page"
+              htmlFor="page"
+              onChange={props.handlePageChanges}
+            />
+            / {Math.floor(props.quotes.length / 4)}
           </div>
         )}
-        <button onClick={props.pageUp}>Next</button>
       </div>
     </div>
   );
